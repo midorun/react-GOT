@@ -1,0 +1,11 @@
+.hide {
+    display: none;
+}
+
+.toggleRandomChar {
+    margin-bottom: 40px;
+    padding: 0 10px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+}

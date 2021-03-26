@@ -1,12 +1,16 @@
 .random-block {
+    /* min-height: 350px; */
     background-color: #fff;
     padding: 25px 25px 15px 25px;
     margin-bottom: 40px;
 }
+
 .random-block h4 {
     margin-bottom: 20px;
     text-align: center;
 }
+
 .term {
+    margin-right: 100px;
     font-weight: bold;
 }

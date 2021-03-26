@@ -31,7 +31,7 @@ const Header = () => {
         <HeaderBlock>
             <HeaderTitle>
                 <a href="#">
-                Game of Thrones DB
+                    Game of Thrones DB
                 </a>
             </HeaderTitle>
             <HeaderLinks>
@@ -42,7 +42,7 @@ const Header = () => {
                     <a href="#">Houses</a>
                 </li>
                 <li>
-                    <a href="#">Books</a>   
+                    <a href="#">Books</a>
                 </li>
             </HeaderLinks>
         </HeaderBlock>
