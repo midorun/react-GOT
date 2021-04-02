@@ -15,11 +15,10 @@ export default class RandomChar extends Component {
         error: false,
         hidden: false
     }
+
     componentDidMount = () => {
         this.updateCharacterData();
-        setInterval(() => {
-            this.timerId = this.updateCharacterData();
-        }, 5000);
+        this.timerId = setInterval(() => this.updateCharacterData(), 5000);
     }
 
     componentWillUnmount = () => {
