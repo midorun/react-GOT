@@ -15,31 +15,35 @@ export default class GotService {
 
     getAllCharacters = async () => {
         const characters = await this.getData('/characters?page=5&pageSize=10');
-        return await characters.map(this._transformCharacterData);
+        return await characters.map(this.transformCharacterData);
     }
 
     getCharacter = async (id) => {
         const character = await this.getData(`/characters/${id}`)
-        return this._transformCharacterData(character);
+        return this.transformCharacterData(character);
     }
 
-    getAllBooks = () => {
-        return this.getData('/books');
+    getAllBooks = async () => {
+        const books = await this.getData('/books')
+        return await books.map(this.transformBooksData);
     }
 
-    getBook = (id) => {
-        return this.getData(`/books/${id}`);
+    getBook = async (id) => {
+        const books = await this.getData(`/books/${id}`)
+        return this.transformBooksData(books);
     }
 
-    getAllHouses = () => {
-        return this.getData('/houses');
+    getAllHouses = async () => {
+        const houses = await this.getData('/houses');
+        return this.transformHousesData(houses);
     }
 
-    getHouse = (id) => {
-        return this.getData(`/houses/${id}`);
+    getHouse = async (id) => {
+        const houses = await this.getData(`/houses/${id}`);
+        return this.transformHousesData(houses);
     }
 
-    _handleEmptyKeys = (character) => {
+    handleEmptyKeys = (character) => {
         for (const key in character) {
             if (!character[key].length) {
                 character[key] = "Unknown"
@@ -47,22 +51,55 @@ export default class GotService {
         }
     }
 
-    _transformCharacterData = (character) => {
+    getId = ({ url }) => {
+        // Находит все числовые символы
+        return url.match(/\d/g).join('');
+    }
 
-        this._handleEmptyKeys(character);
+    transformCharacterData = (character) => {
+        this.handleEmptyKeys(character);
 
-        const getCharacterId = ({ url }) => {
-            // Находит все числовые символы
-            return url.match(/\d/g).join('');
-        }
+        const { name, gender, born, died, culture } = character;
 
         return {
-            id: getCharacterId(character),
-            name: character.name,
-            gender: character.gender,
-            born: character.born,
-            died: character.died,
-            culture: character.culture
+            id: this.getId(character),
+            name,
+            gender,
+            born,
+            died,
+            culture
+        }
+    }
+
+    transformBooksData = (book) => {
+        this.handleEmptyKeys(book);
+
+        const { authors, country, name, numberOfPages, released, mediaType } = book;
+
+        return {
+            id: this.getId(book),
+            authors,
+            country,
+            name,
+            numberOfPages,
+            released,
+            mediaType
+        }
+    }
+
+    transformHousesData = (book) => {
+        this.handleEmptyKeys(book);
+
+        const { authors, country, name, numberOfPages, released, mediaType } = book;
+
+        return {
+            id: this.getId(book),
+            authors,
+            country,
+            name,
+            numberOfPages,
+            released,
+            mediaType
         }
     }
 }

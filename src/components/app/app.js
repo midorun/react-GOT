@@ -5,13 +5,14 @@ import { Col, Row, Container } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import CharacterPage from '../CharacterPage';
+import ErrorHandler from '../errorHandler';
+import BooksPage from '../BooksPage';
 
 // styles
 import './app.css'
-import ErrorHandler from '../errorHandler';
+
 
 export default class App extends Component {
-
     state = {
         showRandomChar: false,
         error: false
@@ -52,6 +53,7 @@ export default class App extends Component {
                         </Col>
                     </Row>
                     <CharacterPage />
+                    <BooksPage />
                 </Container>
             </>
         )

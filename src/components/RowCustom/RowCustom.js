@@ -3,7 +3,7 @@ import { Col, Row } from 'reactstrap';
 
 const RowCustom = ({ left, right }) => {
     return (
-        <Row>
+        <Row className="mt-20">
             <Col md='6'>
                 {left}
             </Col>
