@@ -10,6 +10,7 @@ import BooksPage from '../BooksPage';
 
 // styles
 import './app.css'
+import HousesPage from '../HousesPage/HousesPage';
 
 
 export default class App extends Component {
@@ -54,6 +55,7 @@ export default class App extends Component {
                     </Row>
                     <CharacterPage />
                     <BooksPage />
+                    <HousesPage />
                 </Container>
             </>
         )

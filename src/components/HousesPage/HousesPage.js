@@ -6,11 +6,11 @@ import RowCustom from '../RowCustom';
 import GotService from '../../services/gotService';
 import ItemDetailsField from "../ItemDetailsField";
 
-export default class BooksPage extends Component {
+export default class HousesPage extends Component {
     gotService = new GotService();
 
     state = {
-        selectedItem: 5,
+        selectedItem: 10,
         error: false
     }
 
@@ -30,7 +30,7 @@ export default class BooksPage extends Component {
 
         const itemListComponent = (
             <ItemList
-                getItems={this.gotService.getAllBooks}
+                getItems={this.gotService.getAllHouses}
                 onItemSelected={this.onItemSelected}
                 renderItemContent={({ name, mediaType }) => `${name} (${mediaType})`}
             />
@@ -39,12 +39,12 @@ export default class BooksPage extends Component {
         const itemDetailsComponent = (
             <ItemDetails
                 selectedItemId={this.state.selectedItem}
-                getItem={this.gotService.getBook}
+                getItem={this.gotService.getHouse}
             >
-                <ItemDetailsField label="Authors" field="authors" />
-                <ItemDetailsField label="Country" field="country" />
-                <ItemDetailsField label="NumberOfPages" field="numberOfPages" />
-                <ItemDetailsField label="Released" field="released" />
+                <ItemDetailsField label="Coat Of Arms" field="coatOfArms" />
+                <ItemDetailsField label="Words" field="words" />
+                <ItemDetailsField label="Region" field="region" />
+                <ItemDetailsField label="Founded" field="founded" />
             </ItemDetails>
         )
 

@@ -24,7 +24,7 @@ export default class GotService {
     }
 
     getAllBooks = async () => {
-        const books = await this.getData('/books')
+        const books = await this.getData('/books/')
         return await books.map(this.transformBooksData);
     }
 
@@ -34,13 +34,13 @@ export default class GotService {
     }
 
     getAllHouses = async () => {
-        const houses = await this.getData('/houses');
-        return this.transformHousesData(houses);
+        const houses = await this.getData('/houses/');
+        return await houses.map(this.transformHousesData);
     }
 
     getHouse = async (id) => {
         const houses = await this.getData(`/houses/${id}`);
-        return this.transformHousesData(houses);
+        return await this.transformHousesData(houses);
     }
 
     handleEmptyKeys = (character) => {
@@ -56,13 +56,13 @@ export default class GotService {
         return url.match(/\d/g).join('');
     }
 
-    transformCharacterData = (character) => {
-        this.handleEmptyKeys(character);
+    transformCharacterData = (characters) => {
+        this.handleEmptyKeys(characters);
 
-        const { name, gender, born, died, culture } = character;
+        const { name, gender, born, died, culture } = characters;
 
         return {
-            id: this.getId(character),
+            id: this.getId(characters),
             name,
             gender,
             born,
@@ -71,13 +71,13 @@ export default class GotService {
         }
     }
 
-    transformBooksData = (book) => {
-        this.handleEmptyKeys(book);
+    transformBooksData = (books) => {
+        this.handleEmptyKeys(books);
 
-        const { authors, country, name, numberOfPages, released, mediaType } = book;
+        const { authors, country, name, numberOfPages, released, mediaType } = books;
 
         return {
-            id: this.getId(book),
+            id: this.getId(books),
             authors,
             country,
             name,
@@ -87,22 +87,18 @@ export default class GotService {
         }
     }
 
-    transformHousesData = (book) => {
-        this.handleEmptyKeys(book);
+    transformHousesData = (houses) => {
+        this.handleEmptyKeys(houses);
 
-        const { authors, country, name, numberOfPages, released, mediaType } = book;
+        const { coatOfArms, words, name, region, founded } = houses;
 
         return {
-            id: this.getId(book),
-            authors,
-            country,
+            id: this.getId(houses),
             name,
-            numberOfPages,
-            released,
-            mediaType
+            coatOfArms,
+            words,
+            region,
+            founded
         }
     }
 }
-
-
-
