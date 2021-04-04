@@ -8,9 +8,9 @@ export default class ItemList extends Component {
     }
 
     componentDidMount = () => {
-        const { getData } = this.props;
+        const { getItems } = this.props;
 
-        getData()
+        getItems()
             .then((items) => this.setState({ items }))
     }
 
@@ -20,9 +20,9 @@ export default class ItemList extends Component {
                 <li
                     key={item.id}
                     className="list-group-item"
-                    onClick={() => this.props.onCharSelected(item.id)}
+                    onClick={() => this.props.onItemSelected(item.id)}
                 >
-                    {this.props.renderItem(item)}
+                    {this.props.renderItemContent(item)}
                 </li>
             )
         })

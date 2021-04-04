@@ -13,7 +13,7 @@ import ErrorHandler from '../errorHandler';
 export default class App extends Component {
 
     state = {
-        showRandomChar: true,
+        showRandomChar: false,
         error: false
     }
 
