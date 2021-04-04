@@ -13,29 +13,29 @@ export default class GotService {
         return await response.json();
     }
 
-    async getAllCharacters() {
+    getAllCharacters = async () => {
         const characters = await this.getData('/characters?page=5&pageSize=10');
         return await characters.map(this._transformCharacterData);
     }
 
-    async getCharacter(id) {
+    getCharacter = async (id) => {
         const character = await this.getData(`/characters/${id}`)
         return this._transformCharacterData(character);
     }
 
-    getAllBooks() {
+    getAllBooks = () => {
         return this.getData('/books');
     }
 
-    getBook(id) {
+    getBook = (id) => {
         return this.getData(`/books/${id}`);
     }
 
-    getAllHouses() {
+    getAllHouses = () => {
         return this.getData('/houses');
     }
 
-    getHouse(id) {
+    getHouse = (id) => {
         return this.getData(`/houses/${id}`);
     }
 
@@ -51,7 +51,13 @@ export default class GotService {
 
         this._handleEmptyKeys(character);
 
+        const getCharacterId = ({ url }) => {
+            // Находит все числовые символы
+            return url.match(/\d/g).join('');
+        }
+
         return {
+            id: getCharacterId(character),
             name: character.name,
             gender: character.gender,
             born: character.born,

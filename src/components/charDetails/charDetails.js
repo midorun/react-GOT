@@ -10,7 +10,7 @@ export default class CharDetails extends Component {
     }
 
     componentDidMount = () => {
-
+        this.updateChar();
     }
 
     componentDidUpdate = (prevProps) => {
@@ -26,11 +26,12 @@ export default class CharDetails extends Component {
         }
 
         this.gotService.getCharacter(selectedCharId)
-            .then((char) => this.setState({ char: char }))
+            .then((char) => this.setState({ char }))
+
+
     }
 
     render() {
-
         if (!this.state.char) {
             return <span className='select-error'>Please select a character</span>
         }
