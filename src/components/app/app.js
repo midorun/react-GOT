@@ -10,6 +10,7 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import {
     BooksPage,
+    BooksPageItem,
     CharactersPage,
     HousesPage
 } from '../Pages';
@@ -47,7 +48,7 @@ export default class App extends Component {
     }
 
     render() {
-        const randomChar = this.state.showRandomChar ? <RandomChar /> : null
+        const randomCharComponent = this.state.showRandomChar ? <RandomChar /> : null
 
         if (this.state.error) {
             return <ErrorHandler />
@@ -62,19 +63,15 @@ export default class App extends Component {
                     <Container>
                         <Row>
                             <Col lg={{ size: 5, offset: 0 }}>
-                                {randomChar}
+                                {randomCharComponent}
                                 <button
                                     className="toggleRandomChar"
                                     onClick={this.toggleRandomChar}
                                 >
                                     Toggle Random Character
-                            </button>
+                                </button>
                             </Col>
                         </Row>
-                        <Route
-                            path='/books'
-                            component={BooksPage}
-                        />
                         <Route
                             path='/characters'
                             component={CharactersPage}
@@ -82,6 +79,20 @@ export default class App extends Component {
                         <Route
                             path='/houses'
                             component={HousesPage}
+                        />
+                        <Route
+                            exact
+                            path='/books'
+                            component={BooksPage}
+                        />
+                        <Route
+                            path='/books/:id'
+                            render={({ match }) => {
+                                const { id } = match.params;
+                                return <BooksPageItem
+                                    selectedBookId={id}
+                                />
+                            }}
                         />
                     </Container>
                 </div>
