@@ -32,7 +32,7 @@ export default class HousesPage extends Component {
             <ItemList
                 getItems={this.gotService.getAllHouses}
                 onItemSelected={this.onItemSelected}
-                renderItemContent={({ name, mediaType }) => `${name} (${mediaType})`}
+                renderItemContent={({ name }) => `${name}`}
             />
         )
 

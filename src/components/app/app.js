@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import { Col, Row, Container } from 'reactstrap';
+import {
+    BrowserRouter as Router,
+    Route
+} from 'react-router-dom';
 
 // components
 import Header from '../header';
 import RandomChar from '../randomChar';
-import CharacterPage from '../CharacterPage';
+import {
+    BooksPage,
+    CharactersPage,
+    HousesPage
+} from '../Pages';
 import ErrorHandler from '../errorHandler';
-import BooksPage from '../BooksPage';
 
 // styles
 import './app.css'
-import HousesPage from '../HousesPage/HousesPage';
-
 
 export default class App extends Component {
     state = {
-        showRandomChar: false,
+        showRandomChar: null,
         error: false
     }
 
@@ -24,12 +29,24 @@ export default class App extends Component {
         this.setState({ error: true })
     }
 
+    componentDidMount = () => {
+        if (!localStorage.getItem('showRandomChar')) {
+            localStorage.setItem('showRandomChar', JSON.stringify(true))
+        }
+        this.setState(() => ({ showRandomChar: JSON.parse(localStorage.getItem('showRandomChar')) }))
+    }
+
     toggleRandomChar = () => {
-        this.setState((state) => ({ showRandomChar: !state.showRandomChar }))
+        this.setState(({ showRandomChar }) => {
+            showRandomChar = !showRandomChar;
+            localStorage.setItem('showRandomChar', JSON.stringify(showRandomChar))
+            return {
+                showRandomChar
+            }
+        })
     }
 
     render() {
-
         const randomChar = this.state.showRandomChar ? <RandomChar /> : null
 
         if (this.state.error) {
@@ -37,27 +54,38 @@ export default class App extends Component {
         }
 
         return (
-            <>
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{ size: 5, offset: 0 }}>
-                            {randomChar}
-                            <button
-                                className="toggleRandomChar"
-                                onClick={this.toggleRandomChar}
-                            >
-                                Toggle Random Character
+            <Router>
+                <div className='app'>
+                    <Container>
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Row>
+                            <Col lg={{ size: 5, offset: 0 }}>
+                                {randomChar}
+                                <button
+                                    className="toggleRandomChar"
+                                    onClick={this.toggleRandomChar}
+                                >
+                                    Toggle Random Character
                             </button>
-                        </Col>
-                    </Row>
-                    <CharacterPage />
-                    <BooksPage />
-                    <HousesPage />
-                </Container>
-            </>
+                            </Col>
+                        </Row>
+                        <Route
+                            path='/books'
+                            component={BooksPage}
+                        />
+                        <Route
+                            path='/characters'
+                            component={CharactersPage}
+                        />
+                        <Route
+                            path='/houses'
+                            component={HousesPage}
+                        />
+                    </Container>
+                </div>
+            </Router>
         )
     };
 };
