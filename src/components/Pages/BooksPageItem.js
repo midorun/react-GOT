@@ -10,7 +10,7 @@ export default class BooksPageItem extends Component {
     render() {
         return (
             <ItemDetails
-                selectedItemId={this.props.selectedBook}
+                selectedItemId={this.props.selectedBookId}
                 getItem={this.gotService.getBook}
             >
                 <ItemDetailsField label="Authors" field="authors" />

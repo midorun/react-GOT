@@ -13,7 +13,6 @@ class BooksPage extends Component {
     }
 
     componentDidCatch = () => {
-        console.log('error');
         this.setState({ error: true })
     }
 
