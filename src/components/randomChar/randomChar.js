@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import GotService from '../../services/gotService';
 import LoadingSpinner from '../loadingSpinner';
 import ErrorHandler from '../errorHandler';
@@ -16,9 +18,17 @@ export default class RandomChar extends Component {
         hidden: false
     }
 
+    static defaultProps = {
+        interval: 15000
+    }
+
+    static propTypes = {
+        interval: PropTypes.number
+    }
+
     componentDidMount = () => {
         this.updateCharacterData();
-        this.timerId = setInterval(() => this.updateCharacterData(), 5000);
+        this.timerId = setInterval(() => this.updateCharacterData(), this.props.interval);
     }
 
     componentWillUnmount = () => {
@@ -47,13 +57,10 @@ export default class RandomChar extends Component {
     }
 
     render() {
-        const { character, loading, error } = this.state;
-
-        const errorHandler = error ? <ErrorHandler /> : null
-        const loadingSpinner = loading ? <LoadingSpinner /> : null
-        const layout = !(loading || error) ? <RandomCharacterBlock character={character} /> : null;
-
-
+        const { character, loading, error } = this.state,
+            errorHandler = error ? <ErrorHandler /> : null,
+            loadingSpinner = loading ? <LoadingSpinner /> : null,
+            layout = !(loading || error) ? <RandomCharacterBlock character={character} /> : null;
 
         return (
             <div className="random-block rounded">
@@ -66,7 +73,6 @@ export default class RandomChar extends Component {
 }
 
 const RandomCharacterBlock = ({ character }) => {
-
     const { name, gender, born, died, culture } = character;
 
     return (
