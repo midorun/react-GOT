@@ -15,7 +15,6 @@ export default class CharacterPage extends Component {
     }
 
     componentDidCatch = () => {
-        console.log('error');
         this.setState({ error: true })
     }
 
